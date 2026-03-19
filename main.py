@@ -1,10 +1,27 @@
-from flask import Flask
+import json
+from flask import Flask , request , render_template
+import requests
 
 app = Flask(__name__)
 
-@app.route("/")
-def index():
-    return "HI"
+OLLAMA_URL = "http://localhost:11434/api/generate"
 
+@app.route("/", methods=["GET","POST"])
+def index():
+    response_text = ""
+
+    if request.method == "POST":
+        prompt = request.form.get("prompt") 
+
+        res = requests.post(OLLAMA_URL,json={
+            "model": "llama3.1",
+            "prompt": prompt,
+            "stream": False
+        })
+
+        response_text = res.json()["response"]
+
+
+    return render_template("index.html" , response=response_text)
 
 app.run(debug=False)
