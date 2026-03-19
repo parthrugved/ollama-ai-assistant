@@ -1,0 +1,33 @@
+.app-layout{
+    display: flex;
+    min-height: 100vh;
+}
+
+body{
+    margin: 0;
+}
+
+.left-side{
+    background-color: rgb(249 249 249);
+    max-height: 100vh;
+    min-height: 100vh;
+    width: 25%;
+    flex: 0 0 25%;
+}
+.logo{
+    gap: 150px;
+}
+
+.main-content{
+    flex: 1;
+    padding: 2rem;
+}
+.submit-btn{
+    border-radius: 7px;
+}
+.input-area{
+    width: 850px;
+    align-items: center;
+    justify-content: center;
+    
+}

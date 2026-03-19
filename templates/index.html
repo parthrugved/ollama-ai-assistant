@@ -1,19 +1,66 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>AI Assistant</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <title>LocalMind</title>
 </head>
+
 <body>
+    <div class="app-layout">
+        <div class="left-side gap-32 ">
 
-<h1>Local AI Assistant</h1>
+            <div class="logo flex items-center">
+                <a href="/">
+                    <img class="hover:cursor-pointer" width="120" src="/static/favicon.png" alt="logo">
+                </a>
 
-<form method="POST">
-    <input type="text" name="prompt" placeholder="Ask something..." required>
-    <button type="submit">Send</button>
-</form>
+                <button class="flex h-9 w-9 items-center justify-center rounded-lg hover:bg-gray-100 focus:outline-none"
+                    aria-label="Toggle Sidebar">
+                    <!-- Inline Sidebar Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+                        <line x1="9" x2="9" y1="3" y2="21" />
+                    </svg>
+                </button>
+            </div>
 
-<p><strong>Response:</strong></p>
-<p>{{ response }}</p>
-
+        </div>
+        <main class="main-content flex flex-col min-h-screen p-6">
+          
+            <div class="flex-grow">
+                <h1>
+                    <select name="" id="">
+                        <option value="">Llama3.1</option>
+                    </select>
+                </h1>
+                <br><br>
+                <p><strong>Response:</strong></p>
+                <p>{{ response }}</p>
+            </div>
+        
+           
+            <div class="sticky bottom-0 bg-white py-6 border-t border-gray-100">
+                <form class="items-center flex w-full max-w-4xl mx-auto" method="POST">
+                    <input type="text" 
+                           class="input-area flex-grow border border-gray-300 rounded-md p-2 mr-2" 
+                           name="prompt" 
+                           placeholder="Ask something..." 
+                           required>
+                    <button class="submit-btn text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 font-medium rounded-md text-sm px-6 py-2.5"
+                            type="submit">
+                        Send
+                    </button>
+                </form>
+            </div>
+        </main>
+        
+    </div>
 </body>
+
 </html>
