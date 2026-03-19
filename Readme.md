@@ -46,7 +46,7 @@ localmind/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/localmind.git
+git clone hhttps://github.com/parthrugved/ollama-ai-assistant.git
 cd localmind
 ```
 
