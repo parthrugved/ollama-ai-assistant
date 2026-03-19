@@ -10,7 +10,7 @@ while True:
     if "/quit" in prompt.lower():
         break
     if "/clear" in prompt.lower():
-        with open("answers.txt", "w") as f:
+        with open("cli_version_app.txt", "w") as f:
             pass
 
     data = {
@@ -23,6 +23,6 @@ while True:
 
     print(f"AI : {response.json()["response"]}")
 
-    file = open("answers.txt","+a")
+    file = open("cli_version_app.txt","+a")
     file.write(f"You: {prompt} {"\n"}AI: {response.json()["response"] + "\n \n"}")
     file.close()

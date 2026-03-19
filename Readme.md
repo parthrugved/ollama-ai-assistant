@@ -28,15 +28,25 @@ It allows you to chat with a locally running LLM directly from your browser or t
 ## 📂 Project Structure
 
 ```
-localmind/
+ollama-ai-assistant/
 │
+|── cli_version_app.py
+|
+|── cli_version_app.txt
+|
 ├── app.py
+|
 ├── app.txt
+|
 ├── templates/
 │   └── index.html
+|
 ├── static/
-│   ├── style.css
-│   └── favicon.png
+|   └── favicon.png
+|
+|──── css/
+│       ├── style.css
+│   
 ```
 
 ---
@@ -47,7 +57,7 @@ localmind/
 
 ```bash
 git clone hhttps://github.com/parthrugved/ollama-ai-assistant.git
-cd localmind
+cd ollama-ai-assistant
 ```
 
 ### 2. Install dependencies
@@ -98,7 +108,7 @@ http://127.0.0.1:5000
 
 ## 📸 Screenshot
 
-*Add your UI screenshot here*
+<img src="screenshot 1.png" alt="screenshot">
 
 ---
 
