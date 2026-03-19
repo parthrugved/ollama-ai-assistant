@@ -19,7 +19,7 @@ def index():
         })
 
         response_text = res.json()["response"]
-        file = open("answers.txt","+a")
+        file = open("app.txt","+a")
         file.write(f"You: {prompt} {"\n"}AI: {response_text + "\n \n"}")
         file.close()
 
