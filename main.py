@@ -19,7 +19,9 @@ def index():
         })
 
         response_text = res.json()["response"]
-
+        file = open("answers.txt","+a")
+        file.write(f"You: {prompt} {"\n"}AI: {response_text + "\n \n"}")
+        file.close()
 
     return render_template("index.html" , response=response_text)
 
