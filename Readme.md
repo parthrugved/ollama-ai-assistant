@@ -63,8 +63,8 @@ OPEN WEB UI/
 ### 1. Clone the repository
 
 ```bash id="wq4l9k"
-git clone https://github.com/your-username/localmind.git
-cd localmind
+git clone https://github.com/parthrugved/ollama-ai-assistant.git
+cd ollama-ai-assistant
 ```
 
 ---
