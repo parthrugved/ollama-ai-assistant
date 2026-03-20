@@ -1,39 +1,76 @@
 from flask import Flask , request , render_template
 import requests
+from flask import Response
+import json
 
 app = Flask(__name__)
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
 
-@app.route("/", methods=["GET","POST"])
+@app.route("/", methods=["GET"])
 def index():
-    response_text = ""
+    messages = []
 
-    if request.method == "POST":
-        prompt = request.form.get("prompt")
-
-        res = requests.post(OLLAMA_URL,json={
-            "model": "llama3.1",
-            "prompt": prompt,
-            "stream": False
-        })
-
-        response_text = res.json()["response"]
-
-        file = open("app.txt","+a")
-        file.write(f"You: {prompt} {"\n"}AI: {response_text + "\n \n"}")
-        file.close()
-
-        if prompt.strip().lower() == "/clear":
-            with open("app.txt", "w") as file:
-                pass
-
-    return render_template("index.html" , response=response_text)
-
-@app.route("/history")
-def history():
+    try:
         with open("app.txt", "r") as f:
-            return f.read()
+            lines = f.readlines()
+            for line in lines:
+                if line.startswith("User:"):
+                    messages.append({"role": "user", "text": line.replace("User:", "").strip()})
+                elif line.startswith("Assistant:"):
+                    messages.append({"role": "ai", "text": line.replace("Assistant:", "").strip()})
+    except:
+        pass
+
+    return render_template("index.html", messages=messages)
+
+@app.route("/stream", methods=["POST"])
+def stream():
+    prompt = request.json.get("prompt")
+
+    #  CLEAR COMMAND
+    if prompt.strip().lower() == "/clear":
+        with open("app.txt", "w") as f:
+            pass
+        return Response("Chat cleared 🧹", content_type="text/plain")
+
+    #  LOAD HISTORY
+    history = ""
+    try:
+        with open("app.txt", "r") as f:
+            history = f.read()
+    except:
+        pass
     
+    history = history[-3000:]
+    #  BUILD CONTEXT PROMPT
+    full_prompt = history + f"\nUser: {prompt}\nAssistant:"
+
+    def generate():
+        res = requests.post(
+            OLLAMA_URL,
+            json={
+                "model": "llama3.1",
+                "prompt": full_prompt,
+                "stream": True
+            },
+            stream=True
+        )
+
+        full_response = ""
+
+        for line in res.iter_lines():
+            if line:
+                chunk = json.loads(line.decode("utf-8"))
+                token = chunk.get("response", "")
+
+                full_response += token
+                yield token
+
+        #  SAVE WITH CONTEXT FORMAT
+        with open("app.txt", "a") as file:
+            file.write(f"User: {prompt}{"\n"}Assistant: {full_response} {"\n \n \n"}")
+
+    return Response(generate(), content_type="text/plain")
 
 app.run(debug=False)
