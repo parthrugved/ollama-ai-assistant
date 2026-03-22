@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <img src="screenshot1.png" alt="LocalMind UI" width="80%">
+  <img src="screenshot 1.png" alt="LocalMind UI" width="80%">
 </p>
 
 <p align="center">
