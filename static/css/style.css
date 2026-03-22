@@ -1,33 +1,110 @@
-.app-layout{
+.app-layout {
     display: flex;
     min-height: 100vh;
-}
-
-body{
+    }
+    
+    body {
     margin: 0;
-}
-
-.left-side{
+    }
+    
+    .left-side {
     background-color: rgb(249 249 249);
     max-height: 100vh;
     min-height: 100vh;
     width: 25%;
     flex: 0 0 25%;
-}
-.logo{
+    }
+    
+    .logo {
     gap: 150px;
-}
-
-.main-content{
+    }
+    
+    .main-content {
     flex: 1;
     padding: 2rem;
-}
-.submit-btn{
+    }
+    
+    .submit-btn {
     border-radius: 7px;
-}
-.input-area{
-    width: 850px;
+    }
+    
+    .input-area {
     align-items: center;
     justify-content: center;
+    }
     
-}
+    /* 🔥 KEEP CHAT SIMPLE (OLD STYLE) */
+    #chat {
+    padding: 20px;
+    background-color: rgb(249 250 251);
+    }
+    
+    /* Minimal markdown support (no design change) */
+    #chat p {
+    margin: 8px 0;
+    }
+    
+    #chat h2, #chat h3 {
+    margin: 10px 0;
+    font-weight: bold;
+    }
+    
+    #chat ul {
+    margin-left: 20px;
+    }
+    
+    #chat li {
+    margin: 4px 0;
+    }
+    
+    /* Code blocks (ONLY necessary styling) */
+    #chat pre {
+        background: #1e1e1e;
+        color: #dcdcdc;
+        padding: 12px;
+        border-radius: 8px;
+        overflow-x: auto;
+        font-size: 13px;
+        line-height: 1.5;
+        position: relative;
+    }
+    #chat pre code {
+        font-family: monospace;
+    }
+    #chat code {
+        background: none;
+        color: inherit;
+        padding: 0;
+    }
+    
+    /* Separator (subtle) */
+    #chat hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 10px 0;
+    }
+    
+    /* Copy button (small + minimal) */
+    .copy-btn {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        background: #000;
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 4px 8px;
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        border-radius: 4px;
+        cursor: pointer;
+        opacity: 0.7;
+        transition: all 0.2s;
+        z-index: 10;
+    }
+    
+    .copy-btn:hover {
+        background: #333;
+        opacity: 1;
+        border-color: rgba(255, 255, 255, 0.3);
+    }

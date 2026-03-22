@@ -43,8 +43,19 @@ def stream():
         pass
     
     history = history[-3000:]
-    #  BUILD CONTEXT PROMPT
-    full_prompt = history + f"\nUser: {prompt}\nAssistant:"
+    # Build context
+    full_prompt = history + f"""
+    User: {prompt}
+
+    Assistant:
+    Respond in a clean, structured format:
+    - Use headings (##, ###)
+    - Add emojis to headings (🤖 🧠 📌 🚀 🔥 👍 ✍️ 🎖️ 🏅 💻 👨‍💻)
+    - Use bullet points
+    - Add spacing between sections
+    - Format code using triple backticks
+    - Make response visually clean and easy to read
+    """
 
     def generate():
         res = requests.post(
