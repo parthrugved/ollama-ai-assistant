@@ -88,8 +88,8 @@
  .copy-btn {
     position: absolute;
     top: 8px;
-        right: 8px;
-        background: #000;
+    right: 8px;
+    background: #000;
         color: white;
         border: 1px solid rgba(255, 255, 255, 0.1);
         padding: 4px 8px;
