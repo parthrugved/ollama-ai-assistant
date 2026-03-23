@@ -32,8 +32,6 @@
     align-items: center;
     justify-content: center;
     }
-    
-    /*  KEEP CHAT SIMPLE (OLD STYLE) */
     #chat {
     padding: 20px;
     background-color: rgb(249 250 251);
@@ -55,9 +53,7 @@
     
     #chat li {
     margin: 4px 0;
-    }
-    
-    /* Code blocks (ONLY necessary styling) */
+}
     #chat pre {
         background: #1e1e1e;
         color: #dcdcdc;
@@ -76,15 +72,11 @@
         color: inherit;
         padding: 0;
     }
-    
-    /* Separator (subtle) */
     #chat hr {
     border: none;
     border-top: 1px solid #ddd;
     margin: 10px 0;
-    }
-    
-    /* Copy button (small + minimal) */
+}
  .copy-btn {
     position: absolute;
     top: 8px;
@@ -103,8 +95,8 @@
     z-index: 10;
 
 }
-    
- .copy-btn:hover {        background: #333;
+ .copy-btn:hover {        
+    background: #333;
     opacity: 1;
     border-color: rgba(255, 255, 255, 0.3);
 
