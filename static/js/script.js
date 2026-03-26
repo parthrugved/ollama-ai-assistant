@@ -1,3 +1,4 @@
+// 📋 Copy button for code blocks
 function addCopyButtons() {
     document.querySelectorAll("pre").forEach((block) => {
         if (block.querySelector(".copy-btn")) return;
@@ -16,11 +17,34 @@ function addCopyButtons() {
     });
 }
 
+
+// 📜 Scroll to bottom
 function scrollToBottom() {
     const chat = document.getElementById("chat");
     chat.scrollTop = chat.scrollHeight + 9999;
 }
 
+
+function renderStoredMessages() {
+    document.querySelectorAll(".ai-message").forEach(el => {
+        if (el.dataset.rendered) return;
+
+        const raw = JSON.parse(el.dataset.raw);  // 🔥 IMPORTANT
+
+        el.innerHTML = marked.parse(raw);
+
+        el.querySelectorAll("pre code").forEach((block) => {
+            hljs.highlightElement(block);
+        });
+
+        el.dataset.rendered = "true";
+    });
+
+    addCopyButtons();
+}
+
+
+// 🚀 Send message
 async function sendMessage() {
     const input = document.getElementById("prompt");
     const chat = document.getElementById("chat");
@@ -29,7 +53,7 @@ async function sendMessage() {
     if (!userText) return;
     input.value = "";
 
-    // USER MESSAGE — use createElement, NOT innerHTML +=
+    // USER MESSAGE
     const userDiv = document.createElement("div");
     userDiv.className = "flex justify-end";
     userDiv.innerHTML = `
@@ -45,7 +69,7 @@ async function sendMessage() {
     aiDiv.className = "flex justify-start";
 
     const aiBubble = document.createElement("div");
-    aiBubble.className = "px-6 py-5 rounded-2xl w-full shadow-sm border border-gray-200";
+    aiBubble.className = "ai-message px-6 py-5 rounded-2xl w-full shadow-sm border border-gray-200";
     aiBubble.style.backgroundColor = "rgb(249, 250, 251)";
 
     aiDiv.appendChild(aiBubble);
@@ -71,13 +95,10 @@ async function sendMessage() {
             const chunk = decoder.decode(value, { stream: true });
             fullText += chunk;
 
-            let formatted = fullText
-                .replace(/^(## .*)/gm, "$1\n\n---\n\n")
-                .replace(/^(### .*)/gm, "$1\n\n")
-                .replace(/\n{1}/g, "\n\n");
+            // 🔥 Render markdown LIVE
+            aiBubble.innerHTML = marked.parse(fullText);
 
-            aiBubble.innerHTML = marked.parse(formatted);
-
+            // Highlight code
             aiBubble.querySelectorAll("pre code").forEach((block) => {
                 hljs.highlightElement(block);
             });
@@ -85,13 +106,15 @@ async function sendMessage() {
             addCopyButtons();
             scrollToBottom();
         }
+
     } catch (err) {
         aiBubble.innerHTML = "<p style='color:red'>Error connecting to AI. Make sure the server is running.</p>";
         console.error(err);
     }
 }
 
-// ENTER KEY — keydown is reliable on both desktop and mobile keyboards
+
+// ⌨️ Enter key support
 document.getElementById("prompt").addEventListener("keydown", function (e) {
     if (e.key === "Enter" && !e.shiftKey) {
         e.preventDefault();
@@ -99,7 +122,8 @@ document.getElementById("prompt").addEventListener("keydown", function (e) {
     }
 });
 
-// MOBILE SIDEBAR TOGGLE
+
+// 📱 Mobile sidebar toggle
 function toggleSidebar() {
     const sidebar = document.getElementById("sidebar");
     const overlay = document.getElementById("sidebar-overlay");
@@ -107,3 +131,10 @@ function toggleSidebar() {
     sidebar.classList.toggle("-translate-x-full");
     overlay.classList.toggle("hidden");
 }
+
+
+// 🔥 RUN ON PAGE LOAD (CRITICAL FIX)
+window.onload = () => {
+    renderStoredMessages();
+    scrollToBottom();
+};

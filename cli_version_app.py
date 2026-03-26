@@ -1,6 +1,11 @@
 import requests
+from pymongo import MongoClient
 
-url = "http://localhost:11434/api/generate"
+OLLAMA_URL = "http://localhost:11434/api/generate"
+
+client = MongoClient("mongodb://localhost:27017/")
+db = client["localmind_db_cli"]
+collection = db["history"]
 
 while True:
     prompt = input("You : ")
@@ -19,10 +24,17 @@ while True:
         "stream": False
     }
 
-    response = requests.post(url, json=data)
+    response = requests.post(OLLAMA_URL, json=data)
 
     print(f"AI : {response.json()["response"]}")
 
     file = open("cli_version_app.txt","+a")
     file.write(f"You: {prompt} {"\n"}AI: {response.json()["response"] + "\n \n"}")
     file.close()
+
+    collection.insert_one({
+        "user": "Parth",
+        "prompt": prompt,
+        "response": response.json()["response"]
+    })
+    
