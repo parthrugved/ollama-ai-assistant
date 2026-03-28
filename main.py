@@ -53,7 +53,7 @@ def stream():
     Assistant:
     Respond in a clean, structured format:
     - Use headings (##, ###)
-    - Add emojis to headings (🤖 🧠 🎯 📌 🚀 🔥 👍 ✍️ 🎖️ 🏅 💻 👨‍💻 🧹 💪 )
+    - Add emojis to headings (🤖 💯 🧠 🎯 📌 🚀 🔥 👍 ✍️ 🎖️ 🏅 💻 👨‍💻 🧹 💪 👉 💡 ⚡ 🔍 🧾 📊 👌 ✅ ⚠️ 🔹)
     - Use bullet points
     - Add spacing between sections
     - Format code using triple backticks
